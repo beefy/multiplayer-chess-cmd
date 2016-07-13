@@ -1,6 +1,6 @@
 
 
-var socket = require('socket.io-client')('http://198.89.123.173:3000');
+var socket = require('socket.io-client')('http://127.0.0.1:3000');
 socket.on('connect', function(){});
 socket.on('event', function(data){});
 socket.on('disconnect', function(){});
