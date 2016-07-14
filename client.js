@@ -6,6 +6,7 @@ socket.on('event', function(data){});
 socket.on('disconnect', function(){});
 
 socket.on('other client',function(msg){
+  process.stdout.write('\033c'); 
   console.log(msg)
 });
 
