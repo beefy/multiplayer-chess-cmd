@@ -10,6 +10,15 @@ socket.on('other client',function(msg){
   console.log(msg)
 });
 
+socket.on('kick',function(code){
+  if (code == '0') { 
+    console.log('Thanks for playing!')
+  } else {
+    console.log('Opponent Left\nThanks for playing!')
+  }
+  process.exit()
+});
+
 var readline = require('readline');
 var rl = readline.createInterface({
   input: process.stdin,
