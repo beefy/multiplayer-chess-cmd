@@ -49,4 +49,4 @@ So you'll have one leading bit to determine if it's for promotion or adding, and
 [kind of piece] [which piece] [where to move] [extra]  
 [3 bits] [0-3 bits] [0-5 bits] [0-4 bits] = 3-15 bits = 1-2 bytes
 
-A plain ascii encoding is 8-16 bytes/move, whereas my encoding system is 1-2 bytes/move! That is 8 times better! In a large system, this could make a big impact to network effeciency and data storage. This system is not implemented, but I hope to do so if I find the time.
+A plain ascii encoding is 8-16 bytes/move, whereas my encoding system is 1-2 bytes/move! That is 8 times better! In a large system, this could make a big impact to network effeciency and data storage. This move encoding system is not implemented, but I hope to do so if I find the time.
