@@ -1,16 +1,17 @@
+process.argv.splice(0, 2);
 
+const server = process.argv.shift() || 'http://127.0.0.1:3000';
+const socket = require('socket.io-client')(server);
+socket.on('connect', () => {});
+socket.on('event', () => {});
+socket.on('disconnect', () => {});
 
-var socket = require('socket.io-client')('http://127.0.0.1:3000');
-socket.on('connect', function(){});
-socket.on('event', function(data){});
-socket.on('disconnect', function(){});
-
-socket.on('other client',function(msg){
+socket.on('other client', (msg) => {
   process.stdout.write('\033c'); 
   console.log(msg)
 });
 
-socket.on('kick',function(code){
+socket.on('kick', (code) => {
   if (code == '0') { 
     console.log('Thanks for playing!')
   } else {
@@ -19,13 +20,13 @@ socket.on('kick',function(code){
   process.exit()
 });
 
-var readline = require('readline');
-var rl = readline.createInterface({
+const readline = require('readline');
+const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
   terminal: false
 });
 
-rl.on('line', function(line){
+rl.on('line', (line) => {
   socket.emit('chat message',line);
 })

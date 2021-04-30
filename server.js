@@ -1,28 +1,28 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var Chess = require('chess.js').Chess;
-var chess = new Chess();
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const { Chess } = require('chess.js');
+const chess = new Chess();
 
-var white = -1;
-var black = -1;
-var turn = -1;
-var not_turn = -1;
-var last_move = -1;
-var white_rematch = -1;
-var black_rematch = -1;
-var game_over = false;
+let white = -1;
+let black = -1;
+let turn = -1;
+let not_turn = -1;
+let last_move = -1;
+let white_rematch = -1;
+let black_rematch = -1;
+let game_over = false;
 
 function get_board(id) {
   if (id == white) return chess.ascii()
   return '  '+chess.ascii().split('').reverse().join('').substr(1);
 }
 
-io.on('connection', function(socket){
+io.on('connection', (socket) => {
   if (white == -1) {
     white = socket.id;
     console.log("white player connected: "+white);
-    io.to(white).emit('other client','Waiting for opponent to connect...')
+    socket.emit('other client','Waiting for opponent to connect...')
   } else if (black == -1) {
     black = socket.id;
     turn = white;
@@ -33,7 +33,7 @@ io.on('connection', function(socket){
   }
 
   console.log('a user connected');
-  socket.on('disconnect',function(){
+  socket.on('disconnect',() => {
     console.log('user disconnected');
     var leaveid = socket.id;
     if (leaveid == white) { leaveid = black; }
@@ -42,8 +42,8 @@ io.on('connection', function(socket){
   });
 });
 
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
     console.log('message: ' + msg);
     if (game_over) {
       if (msg != 'y' && msg != 'n') {
@@ -91,6 +91,6 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(3000, function(){
+http.listen(3000, () => {
   console.log('listening on *:3000');
 });
